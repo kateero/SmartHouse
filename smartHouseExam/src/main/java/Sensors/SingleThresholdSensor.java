@@ -1,10 +1,10 @@
 package Sensors;
 
-public class SingleThresholdSendor extends Sensor {
+public class SingleThresholdSensor extends Sensor {
 
     private double maxThreshold;
 
-    public SingleThresholdSendor(String name, String unit, double maxThreshold) {
+    public SingleThresholdSensor(String name, String unit, double maxThreshold) {
         super(name, unit);
     }
 
