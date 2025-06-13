@@ -7,13 +7,12 @@ import java.util.HashMap;
 
 public abstract class EngineeringSystem {
 
-    private final String name;
-    private HashMap<ParametersTypes, SystemParameter> parameters;
-    private ArrayList<Sensor> sensors;
-    private AbstractFactorySensor factorySensor;
+    protected String name;
+    protected HashMap<ParametersTypes, SystemParameter> parameters;
+    protected ArrayList<Sensor> sensors;
+    protected AbstractFactorySensor factorySensor;
 
-    public EngineeringSystem(String name) {
-        this.name = name;
+    public EngineeringSystem() {
         this.parameters = new HashMap<>();
         this.sensors = new ArrayList<>();
     }
@@ -26,8 +25,16 @@ public abstract class EngineeringSystem {
         return sensors;
     }
 
-    public HashMap<ParametersTypes, SystemParameter> getParameters() {
-        return parameters;
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    public void setParameters(HashMap<ParametersTypes, SystemParameter> parameters) {
+        this.parameters = parameters;
+    }
+
+    public void setSensors(ArrayList<Sensor> sensors) {
+        this.sensors = sensors;
     }
     
     public void addSensor(Sensor sensor){
@@ -41,6 +48,12 @@ public abstract class EngineeringSystem {
     public void notifySensors(){
         for (Sensor sensor : sensors) {
             sensor.update(parameters);
+        }
+    }
+    
+    public void updateState(){
+        for (SystemParameter parameter : parameters.values()){
+            parameter.updateCurrentValue();
         }
     }
 }

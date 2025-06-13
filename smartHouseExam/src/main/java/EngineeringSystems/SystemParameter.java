@@ -22,9 +22,7 @@ public class SystemParameter {
         return currentValue;
     }
     
-    public void setCurrentValue(){
+    public void updateCurrentValue(){
         this.currentValue = generator.nextValue();
-    }
-    
-    
+    } 
 }

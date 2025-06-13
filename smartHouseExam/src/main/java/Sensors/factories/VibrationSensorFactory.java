@@ -12,7 +12,7 @@ public class VibrationSensorFactory implements AbstractFactorySensor {
     }
 
     @Override
-    public Sensor createDualThresholdSensor(double maxThreshold, double minThreshold) {
+    public Sensor createDualThresholdSensor(double minThreshold, double maxThreshold) {
         return new DualTheresholSensor("Датчик вибрации", "мм/с",
                 ParametersTypes.VIBRATION, minThreshold, maxThreshold);
     }

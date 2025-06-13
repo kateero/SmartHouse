@@ -12,7 +12,7 @@ public class TempSensorFactory implements AbstractFactorySensor {
     }
 
     @Override
-    public Sensor createDualThresholdSensor(double maxThreshold, double minThreshold) {
+    public Sensor createDualThresholdSensor(double minThreshold, double maxThreshold) {
         return new DualTheresholSensor("Датчик температуры", "°C",
                 ParametersTypes.TEMPERATURE, minThreshold, maxThreshold);
     }

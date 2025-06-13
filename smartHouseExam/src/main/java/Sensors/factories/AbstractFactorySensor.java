@@ -6,5 +6,5 @@ public interface AbstractFactorySensor {
 
     public Sensor createSingleThresholdSensor(double maxThreshold);
 
-    public Sensor createDualThresholdSensor(double maxThreshold, double minThreshold);
+    public Sensor createDualThresholdSensor(double minThreshold, double maxThreshold);
 }

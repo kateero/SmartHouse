@@ -12,7 +12,7 @@ public class HumiditySensorFactory implements AbstractFactorySensor {
     }
 
     @Override
-    public Sensor createDualThresholdSensor(double maxThreshold, double minThreshold) {
+    public Sensor createDualThresholdSensor(double minThreshold, double maxThreshold) {
         return new DualTheresholSensor("Датчик влажности", "%RH", 
                 ParametersTypes.HUMIDITY, minThreshold, maxThreshold);
     }
