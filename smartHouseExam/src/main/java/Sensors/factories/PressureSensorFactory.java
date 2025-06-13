@@ -1,4 +1,6 @@
-package Sensors;
+package Sensors.factories;
+
+import Sensors.*;
 
 public class PressureSensorFactory implements AbstractFactorySensor{
     
