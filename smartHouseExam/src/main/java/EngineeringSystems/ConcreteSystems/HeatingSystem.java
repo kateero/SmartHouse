@@ -1,6 +1,9 @@
 package EngineeringSystems.ConcreteSystems;
 
+import EngineeringSystems.DualSystemParameter;
 import EngineeringSystems.EngineeringSystem;
+import EngineeringSystems.ParametersTypes;
+import EngineeringSystems.SystemParameter;
 import Sensors.factories.HumiditySensorFactory;
 import Sensors.factories.PressureSensorFactory;
 import Sensors.factories.TempSensorFactory;
@@ -10,6 +13,7 @@ public class HeatingSystem extends EngineeringSystem {
     public HeatingSystem() {
         this.name = "Отопление";
         setSensors();
+        setParameters();
     }
 
     private void setSensors() {
@@ -21,5 +25,19 @@ public class HeatingSystem extends EngineeringSystem {
 
         factorySensor = new HumiditySensorFactory();
         this.sensors.add(factorySensor.createDualThresholdSensor(30, 60));
+    }
+
+    private void setParameters() {
+        SystemParameter parameter = new DualSystemParameter("Давление", 1.9, 0.37,
+                3.6, 0.3, 0.4, 0.2);
+        parameters.put(ParametersTypes.PRESSURE, parameter);
+
+        parameter = new DualSystemParameter("Температура", 70, 5,
+                100, 9, 1.5, 0.75);
+        parameters.put(ParametersTypes.TEMPERATURE, parameter);
+
+        parameter = new DualSystemParameter("Влажность", 45, 5,
+                72, 6, 15, 7.5);
+        parameters.put(ParametersTypes.HUMIDITY, parameter);
     }
 }

@@ -11,6 +11,7 @@ public abstract class EngineeringSystem {
     protected HashMap<ParametersTypes, SystemParameter> parameters;
     protected ArrayList<Sensor> sensors;
     protected AbstractFactorySensor factorySensor;
+    private double FAILURE_PROBABILITY = 0.05;
 
     public EngineeringSystem() {
         this.parameters = new HashMap<>();
@@ -25,6 +26,10 @@ public abstract class EngineeringSystem {
         return sensors;
     }
 
+    public HashMap<ParametersTypes, SystemParameter> getParameters() {
+        return parameters;
+    }
+
     public void setName(String name) {
         this.name = name;
     }
@@ -36,24 +41,30 @@ public abstract class EngineeringSystem {
     public void setSensors(ArrayList<Sensor> sensors) {
         this.sensors = sensors;
     }
-    
-    public void addSensor(Sensor sensor){
+
+    public void addSensor(Sensor sensor) {
         this.sensors.add(sensor);
     }
-    
-    public void deleteSensor(Sensor sensor){
+
+    public void deleteSensor(Sensor sensor) {
         this.sensors.remove(sensor);
     }
-    
-    public void notifySensors(){
+
+    public void notifySensors() {
         for (Sensor sensor : sensors) {
             sensor.update(parameters);
         }
     }
-    
-    public void updateState(){
-        for (SystemParameter parameter : parameters.values()){
-            parameter.updateCurrentValue();
+
+    public void updateState() {
+        for (SystemParameter parameter : parameters.values()) {
+            if (Math.random() > FAILURE_PROBABILITY) {
+                parameter.updateCurrentValue();
+            } else {
+                parameter.setNormalState(false);
+                parameter.updateCurrentValue();
+                FAILURE_PROBABILITY = 0.3;
+            }
         }
     }
 }

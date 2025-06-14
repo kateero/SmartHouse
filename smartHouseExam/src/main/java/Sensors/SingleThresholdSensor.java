@@ -11,8 +11,6 @@ public class SingleThresholdSensor extends Sensor {
         this.maxThreshold = maxThreshold;
     }
 
-    
-
     @Override
     public boolean isValueSafe() {
         return this.getCurrentValue() < maxThreshold;
