@@ -8,7 +8,8 @@ public abstract class Sensor {
 
     private final String name;
     private final String unit;
-    private boolean workingState = true;
+    private boolean isWorking = true;
+    private boolean abnormalState = false;
     private ParametersTypes parameter;
     private double currentValue;
 
@@ -22,30 +23,38 @@ public abstract class Sensor {
         return name;
     }
 
-    public boolean isWorkingState() {
-        return workingState;
+    public boolean isWorking() {
+        return isWorking;
     }
 
     public String getUnit() {
         return unit;
     }
 
-    public double getCurrentValue() {
+    public double getCurrentValue() {               //это надо отправлять в таблицу
         return currentValue;
     }
 
-    public void setWorkingState(boolean workingState) {
-        this.workingState = workingState;
-    }
-
-    public void setCurrentValue(double currentValue) {
-        this.currentValue = currentValue;
-    }
-    
     public abstract boolean isValueSafe();
-    
-    public void update(HashMap<ParametersTypes, SystemParameter> parameters){
-       this.currentValue = parameters.get(this.parameter).getCurrentValue();
+
+    public void update(HashMap<ParametersTypes, SystemParameter> parameters) {
+        if (isWorking) {
+            this.currentValue = parameters.get(this.parameter).getCurrentValue();
+            if (!isValueSafe()) {
+                this.abnormalState = true;
+                //notify gui about error
+            }
+            broken();
+        } else {
+            this.currentValue = 0;
+        }
     }
 
+    public void broken() {
+        if (isWorking) {
+            if (Math.random() < 0.05) {
+                this.isWorking = false;
+            }
+        }
+    }
 }

@@ -66,5 +66,6 @@ public abstract class EngineeringSystem {
                 FAILURE_PROBABILITY = 0.3;
             }
         }
+        notifySensors();
     }
 }
