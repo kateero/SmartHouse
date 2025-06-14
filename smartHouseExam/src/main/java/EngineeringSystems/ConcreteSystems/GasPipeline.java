@@ -8,7 +8,7 @@ public class GasPipeline extends EngineeringSystem {
 
     public GasPipeline() {
         this.name = "Газопровод";
-        this.setSensors();
+        setSensors();
     }
     
     private void setSensors(){
