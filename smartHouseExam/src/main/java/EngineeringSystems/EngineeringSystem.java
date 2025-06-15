@@ -62,7 +62,6 @@ public abstract class EngineeringSystem {
                 NORMAL_WORK_PROBABILITY = 0.7;
             }
         }
-        System.out.println("");
         notifySensors();
     }
 

@@ -107,21 +107,16 @@ public class GalaFrame extends javax.swing.JFrame {
     }
 
     public void highlightSensorAndSystem(Sensor targetSensor) {
-        DefaultTreeModel model = (DefaultTreeModel) SystemsTree.getModel();
-        DefaultMutableTreeNode root = (DefaultMutableTreeNode) model.getRoot();
+        DefaultMutableTreeNode systemNode = findParentSystem(targetSensor);
 
-        for (int i = 0; i < root.getChildCount(); i++) {
-            DefaultMutableTreeNode systemNode = (DefaultMutableTreeNode) root.getChildAt(i);
-
-            for (int j = 0; j < systemNode.getChildCount(); j++) {
-                DefaultMutableTreeNode sensorNode = (DefaultMutableTreeNode) systemNode.getChildAt(j);
-                if (((Sensor) sensorNode.getUserObject()).equals(targetSensor)) {
-                    renderer.setNodeRed(systemNode);
-                    renderer.setNodeRed(sensorNode);
-                    SystemsTree.repaint();
-                    alarmMessage(targetSensor, (EngineeringSystem) systemNode.getUserObject());
-                    return;
-                }
+        for (int j = 0; j < systemNode.getChildCount(); j++) {
+            DefaultMutableTreeNode sensorNode = (DefaultMutableTreeNode) systemNode.getChildAt(j);
+            if (((Sensor) sensorNode.getUserObject()).equals(targetSensor)) {
+                renderer.setNodeRed(systemNode);
+                renderer.setNodeRed(sensorNode);
+                SystemsTree.repaint();
+                alarmMessage(targetSensor, (EngineeringSystem) systemNode.getUserObject());
+                return;
             }
         }
     }
@@ -135,7 +130,12 @@ public class GalaFrame extends javax.swing.JFrame {
         JOptionPane.showMessageDialog(null, message, "Регистрация неполадок", JOptionPane.ERROR_MESSAGE);
     }
 
-    public void findBroken(Sensor targetSensor) {
+    public void sensorBroke(Sensor targetSensor) {
+        EngineeringSystem system = (EngineeringSystem) findParentSystem(targetSensor).getUserObject();
+        warningMessage(targetSensor, system);
+    }
+
+    public DefaultMutableTreeNode findParentSystem(Sensor targetSensor) {
         DefaultTreeModel model = (DefaultTreeModel) SystemsTree.getModel();
         DefaultMutableTreeNode root = (DefaultMutableTreeNode) model.getRoot();
 
@@ -145,10 +145,11 @@ public class GalaFrame extends javax.swing.JFrame {
             for (int j = 0; j < systemNode.getChildCount(); j++) {
                 DefaultMutableTreeNode sensorNode = (DefaultMutableTreeNode) systemNode.getChildAt(j);
                 if (((Sensor) sensorNode.getUserObject()).equals(targetSensor)) {
-                    warningMessage(targetSensor, (EngineeringSystem) systemNode.getUserObject());
+                    return systemNode;
                 }
             }
         }
+        return null;
     }
 
     private void warningMessage(Sensor sensor, EngineeringSystem system) {

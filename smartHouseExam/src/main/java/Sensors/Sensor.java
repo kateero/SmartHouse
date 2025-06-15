@@ -4,18 +4,24 @@ import EngineeringSystems.ParametersTypes;
 import EngineeringSystems.SystemParameter;
 import java.util.HashMap;
 import java.util.ArrayList;
+import java.util.List;
+import EngineeringSystems.EngineeringSystem;
 
 public abstract class Sensor {
 
     private final String name;
     private final String unit;
+    private ParametersTypes parameter;
+    private SensorObserver observer;
+
     private boolean isWorking = true;
     private boolean abnormalState = false;
-    private ParametersTypes parameter;
+    private boolean wasLogged = false;
+
     private double currentValue;
-    private final ArrayList<Double> lastValues = new ArrayList<>(MAX_VALUES);
-    private static final int MAX_VALUES = 5;
-    private SensorObserver observer;
+    private List<SensorValue> lastValues = new ArrayList<>();
+
+    private EngineeringSystem parentSystem;
 
     public Sensor(String name, String unit, ParametersTypes parameter) {
         this.name = name;
@@ -39,21 +45,22 @@ public abstract class Sensor {
         return unit;
     }
 
+    public boolean isWasLogged() {
+        return wasLogged;
+    }
+
     public double getCurrentValue() {               //это надо отправлять в таблицу
         return currentValue;
     }
 
-    public ArrayList<Double> getLastValues() {
-        return new ArrayList<>(lastValues);
+    public List<SensorValue> getLastValues() {
+        return lastValues;
     }
 
     public abstract boolean isValueSafe();
 
-    private void addValue(double value) {
-        if (lastValues.size() >= MAX_VALUES) {
-            lastValues.remove(0);
-        }
-        lastValues.add(value);
+    public void addValue(double value) {
+        lastValues.add(new SensorValue(value));
     }
 
     public void update(HashMap<ParametersTypes, SystemParameter> parameters) {
@@ -63,6 +70,7 @@ public abstract class Sensor {
             if (!isValueSafe()) {
                 this.abnormalState = true;
                 observer.update(this);
+                this.wasLogged = true;
             }
             broken();
         } else {
@@ -75,6 +83,7 @@ public abstract class Sensor {
         if (isWorking) {
             if (Math.random() > 0.95) {
                 this.isWorking = false;
+                this.observer.sensorBroke(this);
             }
         }
     }
@@ -82,6 +91,18 @@ public abstract class Sensor {
     @Override
     public String toString() {
         return name;
+    }
+
+    public EngineeringSystem getParentSystem() {
+        return parentSystem;
+    }
+
+    public void setParentSystem(EngineeringSystem parentSystem) {
+        this.parentSystem = parentSystem;
+    }
+
+    public void setLogged(boolean logged) {
+        this.wasLogged = logged;
     }
 
 }
