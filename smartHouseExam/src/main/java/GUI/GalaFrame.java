@@ -128,11 +128,34 @@ public class GalaFrame extends javax.swing.JFrame {
 
     private void alarmMessage(Sensor sensor, EngineeringSystem system) {
         String message = String.format("%s - проверьте систему !!!\n %s зафиксировал недопустимое значение: %.3f %s",
-        system.getName(),
-        sensor.getName(),
-        sensor.getCurrentValue(),
-        sensor.getUnit());
+                system.getName(),
+                sensor.getName(),
+                sensor.getCurrentValue(),
+                sensor.getUnit());
         JOptionPane.showMessageDialog(null, message, "Регистрация неполадок", JOptionPane.ERROR_MESSAGE);
+    }
+
+    public void findBroken(Sensor targetSensor) {
+        DefaultTreeModel model = (DefaultTreeModel) SystemsTree.getModel();
+        DefaultMutableTreeNode root = (DefaultMutableTreeNode) model.getRoot();
+
+        for (int i = 0; i < root.getChildCount(); i++) {
+            DefaultMutableTreeNode systemNode = (DefaultMutableTreeNode) root.getChildAt(i);
+
+            for (int j = 0; j < systemNode.getChildCount(); j++) {
+                DefaultMutableTreeNode sensorNode = (DefaultMutableTreeNode) systemNode.getChildAt(j);
+                if (((Sensor) sensorNode.getUserObject()).equals(targetSensor)) {
+                    warningMessage(targetSensor, (EngineeringSystem) systemNode.getUserObject());
+                }
+            }
+        }
+    }
+
+    private void warningMessage(Sensor sensor, EngineeringSystem system) {
+        String message = String.format("%s - проверьте систему !!!\n %s сломался",
+                system.getName(),
+                sensor.getName());
+        JOptionPane.showMessageDialog(null, message, "Поломка датчика", JOptionPane.WARNING_MESSAGE);
     }
 
 
