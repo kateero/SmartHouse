@@ -5,15 +5,16 @@ import Sensors.Sensor;
 import SmartHouse.SensorsStateMonitor;
 import SmartHouse.SmartHouse;
 import java.util.ArrayList;
+import javax.swing.JOptionPane;
 import javax.swing.tree.DefaultMutableTreeNode;
 import javax.swing.tree.DefaultTreeModel;
 
 public class GalaFrame extends javax.swing.JFrame {
-    
+
     private SmartHouse house;
     private CustomTreeCellRenderer renderer;
     private SensorsStateMonitor monitoring;
-    
+
     public GalaFrame() {
         this.house = new SmartHouse();
         this.renderer = new CustomTreeCellRenderer();
@@ -22,7 +23,7 @@ public class GalaFrame extends javax.swing.JFrame {
         SystemsTree.setCellRenderer(renderer);
         monitoring.registerSystem(house.getSystems());
     }
-    
+
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
@@ -88,11 +89,11 @@ public class GalaFrame extends javax.swing.JFrame {
     private void getDataButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_getDataButtonActionPerformed
         this.house.updateSystems();
     }//GEN-LAST:event_getDataButtonActionPerformed
-    
+
     private DefaultMutableTreeNode createTree() {
         DefaultMutableTreeNode root = new DefaultMutableTreeNode("SmartHouse");
         ArrayList<EngineeringSystem> systems = house.getSystems();
-        
+
         for (EngineeringSystem system : systems) {
             DefaultMutableTreeNode systemNode = new DefaultMutableTreeNode(system);
             ArrayList<Sensor> sensors = system.getSensors();
@@ -104,24 +105,34 @@ public class GalaFrame extends javax.swing.JFrame {
         }
         return root;
     }
-    
+
     public void highlightSensorAndSystem(Sensor targetSensor) {
         DefaultTreeModel model = (DefaultTreeModel) SystemsTree.getModel();
         DefaultMutableTreeNode root = (DefaultMutableTreeNode) model.getRoot();
-        
+
         for (int i = 0; i < root.getChildCount(); i++) {
             DefaultMutableTreeNode systemNode = (DefaultMutableTreeNode) root.getChildAt(i);
-            
+
             for (int j = 0; j < systemNode.getChildCount(); j++) {
                 DefaultMutableTreeNode sensorNode = (DefaultMutableTreeNode) systemNode.getChildAt(j);
                 if (((Sensor) sensorNode.getUserObject()).equals(targetSensor)) {
                     renderer.setNodeRed(systemNode);
                     renderer.setNodeRed(sensorNode);
                     SystemsTree.repaint();
+                    alarmMessage(targetSensor, (EngineeringSystem) systemNode.getUserObject());
                     return;
                 }
             }
         }
+    }
+
+    private void alarmMessage(Sensor sensor, EngineeringSystem system) {
+        String message = String.format("%s - проверьте систему !!!\n %s зафиксировал недопустимое значение: %.3f %s",
+        system.getName(),
+        sensor.getName(),
+        sensor.getCurrentValue(),
+        sensor.getUnit());
+        JOptionPane.showMessageDialog(null, message, "Регистрация неполадок", JOptionPane.ERROR_MESSAGE);
     }
 
 
