@@ -26,10 +26,6 @@ public abstract class EngineeringSystem {
         return sensors;
     }
 
-    public HashMap<ParametersTypes, SystemParameter> getParameters() {
-        return parameters;
-    }
-
     public void setName(String name) {
         this.name = name;
     }
@@ -68,4 +64,11 @@ public abstract class EngineeringSystem {
         }
         notifySensors();
     }
+
+    @Override
+    public String toString() {
+        return name;
+    }
+    
+    
 }

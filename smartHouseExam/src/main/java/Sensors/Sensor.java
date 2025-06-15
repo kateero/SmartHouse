@@ -3,6 +3,7 @@ package Sensors;
 import EngineeringSystems.ParametersTypes;
 import EngineeringSystems.SystemParameter;
 import java.util.HashMap;
+import java.util.ArrayList;
 
 public abstract class Sensor {
 
@@ -12,6 +13,8 @@ public abstract class Sensor {
     private boolean abnormalState = false;
     private ParametersTypes parameter;
     private double currentValue;
+    private final ArrayList<Double> lastValues = new ArrayList<>(MAX_VALUES);
+    private static final int MAX_VALUES = 5;
 
     public Sensor(String name, String unit, ParametersTypes parameter) {
         this.name = name;
@@ -35,11 +38,23 @@ public abstract class Sensor {
         return currentValue;
     }
 
+    public ArrayList<Double> getLastValues() {
+        return new ArrayList<>(lastValues);
+    }
+
     public abstract boolean isValueSafe();
+
+    private void addValue(double value) {
+        if (lastValues.size() >= MAX_VALUES) {
+            lastValues.remove(0);
+        }
+        lastValues.add(value);
+    }
 
     public void update(HashMap<ParametersTypes, SystemParameter> parameters) {
         if (isWorking) {
             this.currentValue = parameters.get(this.parameter).getCurrentValue();
+            addValue(this.currentValue);
             if (!isValueSafe()) {
                 this.abnormalState = true;
                 //notify gui about error
@@ -47,6 +62,7 @@ public abstract class Sensor {
             broken();
         } else {
             this.currentValue = 0;
+            addValue(this.currentValue);
         }
     }
 
@@ -57,4 +73,10 @@ public abstract class Sensor {
             }
         }
     }
+
+    @Override
+    public String toString() {
+        return name;
+    }
+    
 }
