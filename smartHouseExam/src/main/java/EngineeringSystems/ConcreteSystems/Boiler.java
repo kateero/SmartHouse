@@ -10,8 +10,8 @@ public class Boiler extends EngineeringSystem {
 
     public Boiler() {
         this.name = "Котел";
-        setSensors();
         setParameters();
+        setSensors();
     }
 
     private void setSensors() {
@@ -23,9 +23,9 @@ public class Boiler extends EngineeringSystem {
     }
 
     private void setParameters() {
-        SystemParameter parameter = new SystemParameter("Температура", 70, 5, 110, 8);
+        SystemParameter parameter = new SystemParameter("Температура", 60, 5, 95, 5);
         parameters.put(ParametersTypes.TEMPERATURE, parameter);
-        
+
         parameter = new SystemParameter("Утечка газа", 2, 0.67, 55, 5);
         parameters.put(ParametersTypes.GAS, parameter);
     }

@@ -15,11 +15,16 @@ public abstract class Sensor {
     private double currentValue;
     private final ArrayList<Double> lastValues = new ArrayList<>(MAX_VALUES);
     private static final int MAX_VALUES = 5;
+    private SensorObserver observer;
 
     public Sensor(String name, String unit, ParametersTypes parameter) {
         this.name = name;
         this.unit = unit;
         this.parameter = parameter;
+    }
+
+    public void setObserver(SensorObserver observer) {
+        this.observer = observer;
     }
 
     public String getName() {
@@ -57,7 +62,7 @@ public abstract class Sensor {
             addValue(this.currentValue);
             if (!isValueSafe()) {
                 this.abnormalState = true;
-                //notify gui about error
+                observer.update(this);
             }
             broken();
         } else {
@@ -68,7 +73,7 @@ public abstract class Sensor {
 
     public void broken() {
         if (isWorking) {
-            if (Math.random() < 0.05) {
+            if (Math.random() > 0.95) {
                 this.isWorking = false;
             }
         }
@@ -76,7 +81,7 @@ public abstract class Sensor {
 
     @Override
     public String toString() {
-        return name;
+        return name + currentValue;
     }
-    
+
 }

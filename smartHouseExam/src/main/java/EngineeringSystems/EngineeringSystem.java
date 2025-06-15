@@ -11,7 +11,7 @@ public abstract class EngineeringSystem {
     protected HashMap<ParametersTypes, SystemParameter> parameters;
     protected ArrayList<Sensor> sensors;
     protected AbstractFactorySensor factorySensor;
-    private double FAILURE_PROBABILITY = 0.05;
+    private double NORMAL_WORK_PROBABILITY = 0.95;
 
     public EngineeringSystem() {
         this.parameters = new HashMap<>();
@@ -54,14 +54,15 @@ public abstract class EngineeringSystem {
 
     public void updateState() {
         for (SystemParameter parameter : parameters.values()) {
-            if (Math.random() > FAILURE_PROBABILITY) {
+            if (Math.random() < NORMAL_WORK_PROBABILITY) {
                 parameter.updateCurrentValue();
             } else {
                 parameter.setNormalState(false);
                 parameter.updateCurrentValue();
-                FAILURE_PROBABILITY = 0.3;
+                NORMAL_WORK_PROBABILITY = 0.7;
             }
         }
+        System.out.println("");
         notifySensors();
     }
 
@@ -69,6 +70,5 @@ public abstract class EngineeringSystem {
     public String toString() {
         return name;
     }
-    
-    
+
 }

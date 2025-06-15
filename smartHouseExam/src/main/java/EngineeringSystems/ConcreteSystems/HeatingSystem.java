@@ -12,8 +12,8 @@ public class HeatingSystem extends EngineeringSystem {
 
     public HeatingSystem() {
         this.name = "Отопление";
-        setSensors();
         setParameters();
+        setSensors();
     }
 
     private void setSensors() {
@@ -28,16 +28,16 @@ public class HeatingSystem extends EngineeringSystem {
     }
 
     private void setParameters() {
-        SystemParameter parameter = new DualSystemParameter("Давление", 1.9, 0.37,
-                3.6, 0.3, 0.4, 0.2);
+        SystemParameter parameter = new DualSystemParameter("Давление", 1.5, 0.1,
+                5, 0.3, 0.4, 0.1);
         parameters.put(ParametersTypes.PRESSURE, parameter);
 
-        parameter = new DualSystemParameter("Температура", 70, 5,
-                100, 9, 1.5, 0.75);
+        parameter = new DualSystemParameter("Температура", 60, 2,
+                100, 5, 1.5, 0.75);
         parameters.put(ParametersTypes.TEMPERATURE, parameter);
 
-        parameter = new DualSystemParameter("Влажность", 45, 5,
-                72, 6, 15, 7.5);
+        parameter = new DualSystemParameter("Влажность", 40, 2,
+                72, 3, 15, 7.5);
         parameters.put(ParametersTypes.HUMIDITY, parameter);
     }
 }
