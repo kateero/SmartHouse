@@ -1,11 +1,13 @@
 package GUI;
 
 import EngineeringSystems.ConcreteSystems.*;
+import EngineeringSystems.EngineeringSystem;
 import SmartHouse.SmartHouse;
 
 public class CreateSystem extends javax.swing.JFrame {
 
     SmartHouse house;
+    EngineeringSystem system;
 
     public CreateSystem() {
         this.house = new SmartHouse();
@@ -162,18 +164,41 @@ public class CreateSystem extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void buttonAddActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buttonAddActionPerformed
-        switch(ComboBoxExisting.getSelectedItem().toString()){
-            case "Кондиционер" -> this.house.addSystem(new AirConditioner());
-            case "Котел" -> this.house.addSystem(new Boiler());
-            case "Газопровод" -> this.house.addSystem(new GasPipeline());
-            case "Отопление" -> this.house.addSystem(new HeatingSystem());
-            case "Насосная станция" -> this.house.addSystem(new PumpStation());
-            case "Трансформатор" -> this.house.addSystem(new Transformer());
+        switch (ComboBoxExisting.getSelectedItem().toString()) {
+            case "Кондиционер" ->
+                this.house.addSystem(new AirConditioner());
+            case "Котел" ->
+                this.house.addSystem(new Boiler());
+            case "Газопровод" ->
+                this.house.addSystem(new GasPipeline());
+            case "Отопление" ->
+                this.house.addSystem(new HeatingSystem());
+            case "Насосная станция" ->
+                this.house.addSystem(new PumpStation());
+            case "Трансформатор" ->
+                this.house.addSystem(new Transformer());
         }
+        quantityValue.setText(String.valueOf(house.getSystems().size()));
     }//GEN-LAST:event_buttonAddActionPerformed
 
     private void buttonCreateActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buttonCreateActionPerformed
-
+        this.system = new defaultSystem(nameSystemValue.getText());
+        house.addSystem(system);
+        quantityValue.setText(String.valueOf(house.getSystems().size()));
+        switch (thresholdCombobox.getSelectedIndex()) {
+            case 0: {
+                createParameterSingle cp = new createParameterSingle(this.system);
+                cp.setLocationRelativeTo(null);
+                cp.setVisible(true);
+                break;
+            }
+            case 1: {
+                createParameterDual cp = new createParameterDual(this.system);
+                cp.setLocationRelativeTo(null);
+                cp.setVisible(true);
+                break;
+            }
+        }
     }//GEN-LAST:event_buttonCreateActionPerformed
 
 

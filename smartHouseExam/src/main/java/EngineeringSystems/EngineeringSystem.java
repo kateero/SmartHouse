@@ -29,9 +29,9 @@ public abstract class EngineeringSystem {
     public void setName(String name) {
         this.name = name;
     }
-
-    public void setSensors(ArrayList<Sensor> sensors) {
-        this.sensors = sensors;
+    
+    public void addParameter(ParametersTypes type, SystemParameter parameter){
+        this.parameters.put(type, parameter);
     }
 
     public void addSensor(Sensor sensor) {

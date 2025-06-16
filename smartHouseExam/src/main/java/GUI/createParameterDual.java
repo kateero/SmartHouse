@@ -1,22 +1,22 @@
 package GUI;
 
-import EngineeringSystems.ParametersTypes;
-import EngineeringSystems.SystemParameter;
 import EngineeringSystems.DualSystemParameter;
 import EngineeringSystems.EngineeringSystem;
-import javax.swing.JOptionPane;
+import EngineeringSystems.ParametersTypes;
+import EngineeringSystems.SystemParameter;
+import Sensors.Sensor;
+import Sensors.factories.DualFactories;
 import javax.swing.DefaultComboBoxModel;
+import javax.swing.JOptionPane;
 
-public class createParameter extends javax.swing.JFrame {
+public class createParameterDual extends javax.swing.JFrame {
+
     EngineeringSystem system;
-   
-    public createParameter(boolean isSingle, EngineeringSystem system) {
-        if (isSingle) {
-            this.getContentPane().add(panelSingleThreshold);
-        } else {
-            this.getContentPane().add(panelDualThreshold);
-        }
+    Sensor sensor;
+
+    public createParameterDual(EngineeringSystem system) {
         initComponents();
+        initComboBoxes();
         this.system = system;
     }
 
@@ -45,21 +45,9 @@ public class createParameter extends javax.swing.JFrame {
         valueHighTreshold = new javax.swing.JTextField();
         valueLowThreshold = new javax.swing.JTextField();
         create = new javax.swing.JButton();
-        panelSingleThreshold = new javax.swing.JPanel();
-        Title1 = new javax.swing.JLabel();
-        parameterTypeLabel1 = new javax.swing.JLabel();
-        parameterTypeValue1 = new javax.swing.JComboBox<>();
-        labelMean1 = new javax.swing.JLabel();
-        valueMean1 = new javax.swing.JTextField();
-        labelHighMean1 = new javax.swing.JLabel();
-        labelSd1 = new javax.swing.JLabel();
-        valueSd1 = new javax.swing.JTextField();
-        labelSdHigh1 = new javax.swing.JLabel();
-        valueMeanHigh1 = new javax.swing.JTextField();
-        LabelHighThreshold1 = new javax.swing.JLabel();
-        valueHighTreshold1 = new javax.swing.JTextField();
-        create1 = new javax.swing.JButton();
-        valueSdHigh1 = new javax.swing.JTextField();
+        endButton = new javax.swing.JButton();
+
+        setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
         Title.setFont(new java.awt.Font("Geoform", 1, 20)); // NOI18N
         Title.setText("Добавление двухпорогового параметра");
@@ -118,6 +106,14 @@ public class createParameter extends javax.swing.JFrame {
             }
         });
 
+        endButton.setFont(new java.awt.Font("Geoform", 0, 14)); // NOI18N
+        endButton.setText("Завершить создание");
+        endButton.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                endButtonActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout panelDualThresholdLayout = new javax.swing.GroupLayout(panelDualThreshold);
         panelDualThreshold.setLayout(panelDualThresholdLayout);
         panelDualThresholdLayout.setHorizontalGroup(
@@ -160,14 +156,16 @@ public class createParameter extends javax.swing.JFrame {
                                         .addGap(18, 18, 18)
                                         .addGroup(panelDualThresholdLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                                             .addComponent(valueMeanLow, javax.swing.GroupLayout.DEFAULT_SIZE, 95, Short.MAX_VALUE)
-                                            .addComponent(valueSdLow)))
-                                    .addGroup(panelDualThresholdLayout.createSequentialGroup()
-                                        .addGap(9, 9, 9)
-                                        .addComponent(create, javax.swing.GroupLayout.PREFERRED_SIZE, 219, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                                            .addComponent(valueSdLow)))))
                             .addGroup(panelDualThresholdLayout.createSequentialGroup()
                                 .addComponent(parameterTypeLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 119, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(parameterTypeValue, javax.swing.GroupLayout.PREFERRED_SIZE, 207, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                                .addComponent(parameterTypeValue, javax.swing.GroupLayout.PREFERRED_SIZE, 207, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, panelDualThresholdLayout.createSequentialGroup()
+                                .addComponent(create, javax.swing.GroupLayout.PREFERRED_SIZE, 219, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGap(51, 51, 51)
+                                .addComponent(endButton, javax.swing.GroupLayout.PREFERRED_SIZE, 215, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGap(133, 133, 133))))
                     .addGroup(panelDualThresholdLayout.createSequentialGroup()
                         .addGap(185, 185, 185)
                         .addComponent(Title)))
@@ -208,202 +206,68 @@ public class createParameter extends javax.swing.JFrame {
                     .addComponent(LabelLowThreshold)
                     .addComponent(valueHighTreshold, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(valueLowThreshold, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 16, Short.MAX_VALUE)
-                .addComponent(create, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(25, 25, 25))
-        );
-
-        Title1.setFont(new java.awt.Font("Geoform", 1, 20)); // NOI18N
-        Title1.setText("Добавление однопорогового параметра");
-
-        parameterTypeLabel1.setFont(new java.awt.Font("Geoform", 0, 18)); // NOI18N
-        parameterTypeLabel1.setText("Категория");
-
-        parameterTypeValue1.setFont(new java.awt.Font("Geoform", 0, 16)); // NOI18N
-        parameterTypeValue1.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
-
-        labelMean1.setFont(new java.awt.Font("Geoform", 0, 18)); // NOI18N
-        labelMean1.setText("mean штатное");
-
-        valueMean1.setFont(new java.awt.Font("Geoform", 0, 16)); // NOI18N
-
-        labelHighMean1.setFont(new java.awt.Font("Geoform", 0, 18)); // NOI18N
-        labelHighMean1.setText("mean нештатное верхнее");
-
-        labelSd1.setFont(new java.awt.Font("Geoform", 0, 18)); // NOI18N
-        labelSd1.setText("sd штатное");
-
-        valueSd1.setFont(new java.awt.Font("Geoform", 0, 16)); // NOI18N
-
-        labelSdHigh1.setFont(new java.awt.Font("Geoform", 0, 18)); // NOI18N
-        labelSdHigh1.setText("sd нештатное верхнее");
-
-        valueMeanHigh1.setFont(new java.awt.Font("Geoform", 0, 16)); // NOI18N
-
-        LabelHighThreshold1.setFont(new java.awt.Font("Geoform", 0, 18)); // NOI18N
-        LabelHighThreshold1.setText("верхний порог");
-
-        valueHighTreshold1.setFont(new java.awt.Font("Geoform", 0, 16)); // NOI18N
-
-        create1.setFont(new java.awt.Font("Geoform", 0, 14)); // NOI18N
-        create1.setText("Добавить параметр");
-
-        valueSdHigh1.setFont(new java.awt.Font("Geoform", 0, 16)); // NOI18N
-
-        javax.swing.GroupLayout panelSingleThresholdLayout = new javax.swing.GroupLayout(panelSingleThreshold);
-        panelSingleThreshold.setLayout(panelSingleThresholdLayout);
-        panelSingleThresholdLayout.setHorizontalGroup(
-            panelSingleThresholdLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(panelSingleThresholdLayout.createSequentialGroup()
-                .addGroup(panelSingleThresholdLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(panelSingleThresholdLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                        .addGroup(panelSingleThresholdLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(panelSingleThresholdLayout.createSequentialGroup()
-                                .addGap(1, 1, 1)
-                                .addComponent(parameterTypeLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 119, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(parameterTypeValue1, javax.swing.GroupLayout.PREFERRED_SIZE, 207, javax.swing.GroupLayout.PREFERRED_SIZE))
-                            .addGroup(panelSingleThresholdLayout.createSequentialGroup()
-                                .addGroup(panelSingleThresholdLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(labelMean1)
-                                    .addComponent(labelSd1))
-                                .addGap(18, 18, 18)
-                                .addGroup(panelSingleThresholdLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                                    .addComponent(valueSd1)
-                                    .addComponent(valueMean1, javax.swing.GroupLayout.PREFERRED_SIZE, 113, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                            .addGroup(panelSingleThresholdLayout.createSequentialGroup()
-                                .addGroup(panelSingleThresholdLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addGroup(panelSingleThresholdLayout.createSequentialGroup()
-                                        .addComponent(labelSdHigh1)
-                                        .addGap(29, 29, 29))
-                                    .addComponent(labelHighMean1, javax.swing.GroupLayout.Alignment.TRAILING))
-                                .addGroup(panelSingleThresholdLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addGroup(panelSingleThresholdLayout.createSequentialGroup()
-                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                        .addComponent(valueMeanHigh1, javax.swing.GroupLayout.PREFERRED_SIZE, 113, javax.swing.GroupLayout.PREFERRED_SIZE))
-                                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, panelSingleThresholdLayout.createSequentialGroup()
-                                        .addGap(11, 11, 11)
-                                        .addComponent(valueSdHigh1, javax.swing.GroupLayout.PREFERRED_SIZE, 114, javax.swing.GroupLayout.PREFERRED_SIZE))))
-                            .addGroup(panelSingleThresholdLayout.createSequentialGroup()
-                                .addComponent(LabelHighThreshold1, javax.swing.GroupLayout.PREFERRED_SIZE, 142, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(valueHighTreshold1, javax.swing.GroupLayout.PREFERRED_SIZE, 114, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                        .addGroup(panelSingleThresholdLayout.createSequentialGroup()
-                            .addGap(267, 267, 267)
-                            .addComponent(create1, javax.swing.GroupLayout.PREFERRED_SIZE, 219, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addGap(56, 56, 56)))
-                    .addGroup(panelSingleThresholdLayout.createSequentialGroup()
-                        .addGap(180, 180, 180)
-                        .addComponent(Title1)))
-                .addContainerGap(210, Short.MAX_VALUE))
-        );
-        panelSingleThresholdLayout.setVerticalGroup(
-            panelSingleThresholdLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, panelSingleThresholdLayout.createSequentialGroup()
-                .addGap(20, 20, 20)
-                .addComponent(Title1)
                 .addGap(18, 18, 18)
-                .addGroup(panelSingleThresholdLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addComponent(parameterTypeLabel1)
-                    .addComponent(parameterTypeValue1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(11, 11, 11)
-                .addGroup(panelSingleThresholdLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(labelMean1)
-                    .addComponent(valueMean1, javax.swing.GroupLayout.PREFERRED_SIZE, 31, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(panelSingleThresholdLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(labelSd1)
-                    .addComponent(valueSd1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 22, Short.MAX_VALUE)
-                .addGroup(panelSingleThresholdLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(labelHighMean1)
-                    .addComponent(valueMeanHigh1, javax.swing.GroupLayout.PREFERRED_SIZE, 31, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addGroup(panelSingleThresholdLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(valueSdHigh1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(labelSdHigh1))
-                .addGap(18, 18, 18)
-                .addGroup(panelSingleThresholdLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(LabelHighThreshold1)
-                    .addComponent(valueHighTreshold1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(18, 18, 18)
-                .addComponent(create1, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(26, 26, 26))
+                .addGroup(panelDualThresholdLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(create, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(endButton, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addContainerGap(23, Short.MAX_VALUE))
         );
-
-        setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 669, Short.MAX_VALUE)
+            .addGap(0, 817, Short.MAX_VALUE)
+            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addGroup(layout.createSequentialGroup()
+                    .addGap(0, 0, Short.MAX_VALUE)
+                    .addComponent(panelDualThreshold, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addGap(0, 0, Short.MAX_VALUE)))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 384, Short.MAX_VALUE)
+            .addGap(0, 398, Short.MAX_VALUE)
+            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addGroup(layout.createSequentialGroup()
+                    .addGap(0, 0, Short.MAX_VALUE)
+                    .addComponent(panelDualThreshold, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addGap(0, 0, Short.MAX_VALUE)))
         );
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
     private void createActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_createActionPerformed
-        
+        SystemParameter parameter = createDualThresholdParameter();
+        if (parameter != null) {
+            this.system.addParameter(whichType(), parameter);
+            this.system.addSensor(sensor);
+            JOptionPane.showMessageDialog(this,
+                    "Параметр добавлен",
+                    "Успех",
+                    JOptionPane.INFORMATION_MESSAGE);
+            clearFields();
+        }
     }//GEN-LAST:event_createActionPerformed
+
+    private void endButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_endButtonActionPerformed
+        this.dispose();
+    }//GEN-LAST:event_endButtonActionPerformed
 
     private void initComboBoxes() {
         ParametersTypes[] types = ParametersTypes.values();
         String[] formattedTypes = new String[types.length];
         for (int i = 0; i < types.length; i++) {
             String typeName = types[i].toString();
-            formattedTypes[i] = typeName.substring(0, 1).toUpperCase() + 
-                              typeName.substring(1).toLowerCase();
+            formattedTypes[i] = typeName.substring(0, 1).toUpperCase()
+                    + typeName.substring(1).toLowerCase();
         }
 
         parameterTypeValue.setModel(new DefaultComboBoxModel<>(formattedTypes));
-        parameterTypeValue1.setModel(new DefaultComboBoxModel<>(formattedTypes));
-    }
-
-    
-    public SystemParameter createParameter() {
-        if (panelSingleThreshold.isVisible()) {
-            return createSingleThresholdParameter();
-        } else {
-            return createDualThresholdParameter();
-        }
-    }
-
-    private SystemParameter createSingleThresholdParameter() {
-        try {
-            String parameterType = parameterTypeValue1.getSelectedItem().toString();
-            double threshold = Double.parseDouble(valueHighTreshold1.getText());
-            double mean = Double.parseDouble(valueMean1.getText());
-            double sd = Double.parseDouble(valueSd1.getText());
-            double abnormalMean = Double.parseDouble(valueMeanHigh1.getText());
-            double abnormalSd = Double.parseDouble(valueSdHigh1.getText());
-            
-            if (!isPositive(threshold) || !isPositive(mean) || !isPositive(sd) ||
-                !isPositive(abnormalMean) || !isPositive(abnormalSd)) {
-                JOptionPane.showMessageDialog(this, 
-                    "Все значения должны быть положительными числами",
-                    "Ошибка ввода",
-                    JOptionPane.ERROR_MESSAGE);
-                return null;
-            }
-            
-            return new SystemParameter(mean, sd, abnormalMean, abnormalSd);
-        } catch (NumberFormatException e) {
-            JOptionPane.showMessageDialog(this, 
-                "Пожалуйста, введите корректные числовые значения",
-                "Ошибка ввода",
-                JOptionPane.ERROR_MESSAGE);
-            return null;
-        }
     }
 
     private SystemParameter createDualThresholdParameter() {
         try {
-            String parameterType = parameterTypeValue.getSelectedItem().toString();
             double highThreshold = Double.parseDouble(valueHighTreshold.getText());
             double lowThreshold = Double.parseDouble(valueLowThreshold.getText());
             double mean = Double.parseDouble(valueMean.getText());
@@ -412,68 +276,71 @@ public class createParameter extends javax.swing.JFrame {
             double abnormalHighSd = Double.parseDouble(valueSdHigh.getText());
             double abnormalLowMean = Double.parseDouble(valueMeanLow.getText());
             double abnormalLowSd = Double.parseDouble(valueSdLow.getText());
-            
-            if (!isPositive(highThreshold) || !isPositive(lowThreshold) || 
-                !isPositive(mean) || !isPositive(sd) ||
-                !isPositive(abnormalHighMean) || !isPositive(abnormalHighSd) ||
-                !isPositive(abnormalLowMean) || !isPositive(abnormalLowSd)) {
-                JOptionPane.showMessageDialog(this, 
-                    "Все значения должны быть положительными числами",
-                    "Ошибка ввода",
-                    JOptionPane.ERROR_MESSAGE);
+
+            if (!isPositive(highThreshold) || !isPositive(lowThreshold)
+                    || !isPositive(mean) || !isPositive(sd)
+                    || !isPositive(abnormalHighMean) || !isPositive(abnormalHighSd)
+                    || !isPositive(abnormalLowMean) || !isPositive(abnormalLowSd)) {
+                JOptionPane.showMessageDialog(this,
+                        "Все значения должны быть положительными числами",
+                        "Ошибка ввода",
+                        JOptionPane.ERROR_MESSAGE);
                 return null;
             }
-            
-            return new DualSystemParameter(mean, sd, abnormalHighMean, abnormalHighSd, abnormalLowMean, abnormalLowSd);
+            this.sensor = DualFactories.createSensor(whichType(), lowThreshold, highThreshold);
+            return new DualSystemParameter(mean, sd, abnormalLowMean, abnormalLowSd, abnormalHighMean, abnormalHighSd);
         } catch (NumberFormatException e) {
-            JOptionPane.showMessageDialog(this, 
-                "Пожалуйста, введите корректные числовые значения",
-                "Ошибка ввода",
-                JOptionPane.ERROR_MESSAGE);
+            JOptionPane.showMessageDialog(this,
+                    "Пожалуйста, введите корректные числовые значения",
+                    "Ошибка ввода",
+                    JOptionPane.ERROR_MESSAGE);
             return null;
         }
     }
-    
+
     private boolean isPositive(double value) {
         return value > 0;
     }
 
+    private ParametersTypes whichType() {
+        String selectedType = parameterTypeValue.getSelectedItem().toString();
+        return ParametersTypes.valueOf(selectedType.toUpperCase());
+    }
+
+    private void clearFields() {
+        valueMean.setText("");
+        valueSd.setText("");
+        valueMeanHigh.setText("");
+        valueSdHigh.setText("");
+        valueMeanLow.setText("");
+        valueSdLow.setText("");
+        valueHighTreshold.setText("");
+        valueLowThreshold.setText("");
+        parameterTypeValue.setSelectedIndex(0);
+    }
+
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JLabel LabelHighThreshold;
-    private javax.swing.JLabel LabelHighThreshold1;
     private javax.swing.JLabel LabelLowThreshold;
     private javax.swing.JLabel Title;
-    private javax.swing.JLabel Title1;
     private javax.swing.JButton create;
-    private javax.swing.JButton create1;
+    private javax.swing.JButton endButton;
     private javax.swing.JLabel labelHighMean;
-    private javax.swing.JLabel labelHighMean1;
     private javax.swing.JLabel labelLowMean;
     private javax.swing.JLabel labelMean;
-    private javax.swing.JLabel labelMean1;
     private javax.swing.JLabel labelSd;
-    private javax.swing.JLabel labelSd1;
     private javax.swing.JLabel labelSdHigh;
-    private javax.swing.JLabel labelSdHigh1;
     private javax.swing.JLabel labelSdLow;
     private javax.swing.JPanel panelDualThreshold;
-    private javax.swing.JPanel panelSingleThreshold;
     private javax.swing.JLabel parameterTypeLabel;
-    private javax.swing.JLabel parameterTypeLabel1;
     private javax.swing.JComboBox<String> parameterTypeValue;
-    private javax.swing.JComboBox<String> parameterTypeValue1;
     private javax.swing.JTextField valueHighTreshold;
-    private javax.swing.JTextField valueHighTreshold1;
     private javax.swing.JTextField valueLowThreshold;
     private javax.swing.JTextField valueMean;
-    private javax.swing.JTextField valueMean1;
     private javax.swing.JTextField valueMeanHigh;
-    private javax.swing.JTextField valueMeanHigh1;
     private javax.swing.JTextField valueMeanLow;
     private javax.swing.JTextField valueSd;
-    private javax.swing.JTextField valueSd1;
     private javax.swing.JTextField valueSdHigh;
-    private javax.swing.JTextField valueSdHigh1;
     private javax.swing.JTextField valueSdLow;
     // End of variables declaration//GEN-END:variables
 }
