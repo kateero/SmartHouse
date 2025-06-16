@@ -10,12 +10,6 @@ public class SmartHouse {
 
     public SmartHouse() {
         this.systems = new ArrayList<>();
-        this.systems.add(new AirConditioner());
-        this.systems.add(new Boiler());
-        this.systems.add(new GasPipeline());
-        this.systems.add(new HeatingSystem());
-        this.systems.add(new PumpStation());
-        this.systems.add(new Transformer());
     }
 
     public ArrayList<EngineeringSystem> getSystems() {
@@ -26,5 +20,9 @@ public class SmartHouse {
         for (EngineeringSystem system : systems) {
             system.updateState();
         }
+    }
+
+    public void addSystem(EngineeringSystem system) {
+        this.systems.add(system);
     }
 }

@@ -32,18 +32,18 @@ public class PumpStation extends EngineeringSystem {
     }
 
     private void setParameters() {
-        SystemParameter parameter = new DualSystemParameter("Давление", 6, 1,
+        SystemParameter parameter = new DualSystemParameter(6, 1,
                 15.6, 1.8, 0.5, 0.25);
         parameters.put(ParametersTypes.PRESSURE, parameter);
         
-        parameter = new DualSystemParameter("Влажность", 45, 3,
+        parameter = new DualSystemParameter(45, 3,
                 85, 3, 15, 5);
         parameters.put(ParametersTypes.HUMIDITY, parameter);
         
-        parameter = new SystemParameter("Вибрация", 1, 0.5, 8.5, 1.5);
+        parameter = new SystemParameter(1, 0.5, 8.5, 1.5);
         parameters.put(ParametersTypes.VIBRATION, parameter);
         
-        parameter = new SystemParameter("Потребление энергии", 700, 5, 900, 10);
+        parameter = new SystemParameter(700, 5, 900, 10);
         parameters.put(ParametersTypes.ENERGY, parameter);
     }
 }

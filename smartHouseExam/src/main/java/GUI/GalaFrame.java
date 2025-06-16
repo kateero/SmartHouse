@@ -2,6 +2,7 @@ package GUI;
 
 import EngineeringSystems.EngineeringSystem;
 import Sensors.Sensor;
+import SmartHouse.LogExcel;
 import SmartHouse.SensorsStateMonitor;
 import SmartHouse.SmartHouse;
 import java.util.ArrayList;
@@ -14,12 +15,15 @@ public class GalaFrame extends javax.swing.JFrame {
     private SmartHouse house;
     private CustomTreeCellRenderer renderer;
     private SensorsStateMonitor monitoring;
+    private LogExcel logging;
 
-    public GalaFrame() {
+    public GalaFrame(SmartHouse smartHouse) {
         super("Мониторинг умного дома");
-        this.house = new SmartHouse();
+        this.house = smartHouse;
         this.renderer = new CustomTreeCellRenderer();
         this.monitoring = new SensorsStateMonitor(this);
+        this.logging = new LogExcel();
+        this.logging.createExcel(house);
         initComponents();
         SystemsTree.setCellRenderer(renderer);
         monitoring.registerSystem(house.getSystems());
@@ -35,6 +39,11 @@ public class GalaFrame extends javax.swing.JFrame {
         SystemsTree = new javax.swing.JTree(createTree());
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        addWindowListener(new java.awt.event.WindowAdapter() {
+            public void windowClosed(java.awt.event.WindowEvent evt) {
+                formWindowClosed(evt);
+            }
+        });
 
         jPanel1.setBackground(new java.awt.Color(214, 204, 194));
 
@@ -98,7 +107,12 @@ public class GalaFrame extends javax.swing.JFrame {
 
     private void getDataButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_getDataButtonActionPerformed
         this.house.updateSystems();
+        this.logging.writeLog(house);
     }//GEN-LAST:event_getDataButtonActionPerformed
+
+    private void formWindowClosed(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowClosed
+       this.logging.close();
+    }//GEN-LAST:event_formWindowClosed
 
     private DefaultMutableTreeNode createTree() {
         DefaultMutableTreeNode root = new DefaultMutableTreeNode("Home Assistant");

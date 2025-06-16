@@ -31,16 +31,16 @@ public class Transformer extends EngineeringSystem {
     }
 
     private void setParameters() {
-        SystemParameter parameter = new SystemParameter("Температура", 40, 3, 95, 3);
+        SystemParameter parameter = new SystemParameter(40, 3, 95, 3);
         parameters.put(ParametersTypes.TEMPERATURE, parameter);
 
-        parameter = new SystemParameter("Энергопотребление", 150, 3, 200, 5);
+        parameter = new SystemParameter(150, 3, 200, 5);
         parameters.put(ParametersTypes.ENERGY, parameter);
 
-        parameter = new SystemParameter("Шум", 25, 2, 50, 3);
+        parameter = new SystemParameter(25, 2, 50, 3);
         parameters.put(ParametersTypes.NOISE, parameter);
 
-        parameter = new SystemParameter("Вибрация", 0.5, 0.1, 5, 1.5);
+        parameter = new SystemParameter(0.5, 0.1, 5, 1.5);
         parameters.put(ParametersTypes.VIBRATION, parameter);
     }
 }

@@ -12,6 +12,7 @@ public abstract class EngineeringSystem {
     protected ArrayList<Sensor> sensors;
     protected AbstractFactorySensor factorySensor;
     private double NORMAL_WORK_PROBABILITY = 0.95;
+    private boolean hasAbnormalState = false;
 
     public EngineeringSystem() {
         this.parameters = new HashMap<>();
@@ -29,13 +30,9 @@ public abstract class EngineeringSystem {
     public void setName(String name) {
         this.name = name;
     }
-
-    public void setParameters(HashMap<ParametersTypes, SystemParameter> parameters) {
-        this.parameters = parameters;
-    }
-
-    public void setSensors(ArrayList<Sensor> sensors) {
-        this.sensors = sensors;
+    
+    public void addParameter(ParametersTypes type, SystemParameter parameter){
+        this.parameters.put(type, parameter);
     }
 
     public void addSensor(Sensor sensor) {

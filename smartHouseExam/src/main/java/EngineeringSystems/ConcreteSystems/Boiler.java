@@ -23,10 +23,10 @@ public class Boiler extends EngineeringSystem {
     }
 
     private void setParameters() {
-        SystemParameter parameter = new SystemParameter("Температура", 60, 5, 95, 5);
+        SystemParameter parameter = new SystemParameter(60, 5, 95, 5);
         parameters.put(ParametersTypes.TEMPERATURE, parameter);
 
-        parameter = new SystemParameter("Утечка газа", 2, 0.67, 55, 5);
+        parameter = new SystemParameter(2, 0.67, 55, 5);
         parameters.put(ParametersTypes.GAS, parameter);
     }
 }

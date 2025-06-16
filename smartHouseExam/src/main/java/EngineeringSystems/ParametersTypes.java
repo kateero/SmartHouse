@@ -7,5 +7,8 @@ public enum ParametersTypes {
     GAS,
     VIBRATION,
     NOISE,
-    ENERGY
+    ENERGY,
+    LIGHT, 
+    ELECTRIC,
+    WATER
 }
