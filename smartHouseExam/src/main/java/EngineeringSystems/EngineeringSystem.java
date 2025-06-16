@@ -30,10 +30,6 @@ public abstract class EngineeringSystem {
         this.name = name;
     }
 
-    public void setParameters(HashMap<ParametersTypes, SystemParameter> parameters) {
-        this.parameters = parameters;
-    }
-
     public void setSensors(ArrayList<Sensor> sensors) {
         this.sensors = sensors;
     }

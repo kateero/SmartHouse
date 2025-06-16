@@ -27,4 +27,8 @@ public class SmartHouse {
             system.updateState();
         }
     }
+    
+    public void addSystem(EngineeringSystem system){
+        this.systems.add(system);
+    }
 }
