@@ -49,7 +49,7 @@ public abstract class Sensor {
         return wasLogged;
     }
 
-    public double getCurrentValue() {               //это надо отправлять в таблицу
+    public double getCurrentValue() {    
         return currentValue;
     }
 
