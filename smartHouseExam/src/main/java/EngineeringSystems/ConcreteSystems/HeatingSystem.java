@@ -22,6 +22,10 @@ public class HeatingSystem extends EngineeringSystem {
 
         factorySensor = new TempSensorFactory();
         this.sensors.add(factorySensor.createDualThresholdSensor(3, 90));
+        
+        factorySensor = new TempSensorFactory();
+        this.sensors.add(factorySensor.createDualThresholdSensor(3, 90));
+
 
         factorySensor = new HumiditySensorFactory();
         this.sensors.add(factorySensor.createDualThresholdSensor(30, 60));

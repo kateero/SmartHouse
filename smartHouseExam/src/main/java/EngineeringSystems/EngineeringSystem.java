@@ -12,6 +12,7 @@ public abstract class EngineeringSystem {
     protected ArrayList<Sensor> sensors;
     protected AbstractFactorySensor factorySensor;
     private double NORMAL_WORK_PROBABILITY = 0.95;
+    private boolean hasAbnormalState = false;
 
     public EngineeringSystem() {
         this.parameters = new HashMap<>();
