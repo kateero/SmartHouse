@@ -19,12 +19,12 @@ public class CustomTreeCellRenderer extends DefaultTreeCellRenderer {
             boolean selected, boolean expanded, boolean leaf, int row,
             boolean hasFocus) {
         super.getTreeCellRendererComponent(tree, value, selected, expanded, leaf, row, hasFocus);
-
+        
         DefaultMutableTreeNode node = (DefaultMutableTreeNode) value;
         if (redNodes.contains(node)) {
             setForeground(Color.RED);
         }
-
+        
         return this;
     }
 }

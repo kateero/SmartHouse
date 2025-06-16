@@ -12,13 +12,14 @@ import java.util.ArrayList;
 
 public class SensorsStateMonitor implements SensorObserver {
 
-    private String path = "C:\\Users\\Катя\\OneDrive\\Рабочий стол\\Results.txt";
+    private String path = System.getProperty("user.dir") + "\\emergency_log.txt";
     private GalaFrame gui;
 
     public SensorsStateMonitor(GalaFrame gui) {
         this.gui = gui;
         try (FileWriter fw = new FileWriter(path, false)) {
-            fw.write("");
+            fw.write("Журнал предаварийных показаний.\n"
+            + "Последнее значение в массиве является аварийным.\n\n");
         } catch (IOException e) {
             System.err.println("Файл не найден");
         }

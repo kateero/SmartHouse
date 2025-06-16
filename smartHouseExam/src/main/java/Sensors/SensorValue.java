@@ -8,7 +8,7 @@ public class SensorValue {
     private LocalDateTime timestamp;
 
     public SensorValue(double value) {
-        this.value = Math.round(value * 1000.0) / 1000.0; // округляем до 3 знаков
+        this.value = Math.round(value * 1000.0) / 1000.0;
         this.timestamp = LocalDateTime.now();
     }
 
