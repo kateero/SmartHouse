@@ -48,6 +48,11 @@
   </Layout>
   <SubComponents>
     <Container class="javax.swing.JPanel" name="panelDualThreshold">
+      <Properties>
+        <Property name="background" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
+          <Color blue="e9" green="ed" red="ed" type="rgb"/>
+        </Property>
+      </Properties>
 
       <Layout>
         <DimensionLayout dim="0">
@@ -333,6 +338,9 @@
         </Component>
         <Component class="javax.swing.JButton" name="create">
           <Properties>
+            <Property name="background" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
+              <Color blue="ca" green="d5" red="e3" type="rgb"/>
+            </Property>
             <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
               <Font name="Geoform" size="14" style="0"/>
             </Property>
@@ -344,6 +352,9 @@
         </Component>
         <Component class="javax.swing.JButton" name="endButton">
           <Properties>
+            <Property name="background" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
+              <Color blue="ca" green="d5" red="e3" type="rgb"/>
+            </Property>
             <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
               <Font name="Geoform" size="14" style="0"/>
             </Property>

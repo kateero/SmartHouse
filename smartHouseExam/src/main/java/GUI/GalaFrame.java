@@ -17,9 +17,9 @@ public class GalaFrame extends javax.swing.JFrame {
     private SensorsStateMonitor monitoring;
     private LogExcel logging;
 
-    public GalaFrame() {
+    public GalaFrame(SmartHouse smartHouse) {
         super("Мониторинг умного дома");
-        this.house = new SmartHouse();
+        this.house = smartHouse;
         this.renderer = new CustomTreeCellRenderer();
         this.monitoring = new SensorsStateMonitor(this);
         this.logging = new LogExcel();

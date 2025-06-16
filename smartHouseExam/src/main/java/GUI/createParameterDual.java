@@ -49,6 +49,8 @@ public class createParameterDual extends javax.swing.JFrame {
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
+        panelDualThreshold.setBackground(new java.awt.Color(237, 237, 233));
+
         Title.setFont(new java.awt.Font("Geoform", 1, 20)); // NOI18N
         Title.setText("Добавление двухпорогового параметра");
 
@@ -98,6 +100,7 @@ public class createParameterDual extends javax.swing.JFrame {
 
         valueLowThreshold.setFont(new java.awt.Font("Geoform", 0, 16)); // NOI18N
 
+        create.setBackground(new java.awt.Color(227, 213, 202));
         create.setFont(new java.awt.Font("Geoform", 0, 14)); // NOI18N
         create.setText("Добавить параметр");
         create.addActionListener(new java.awt.event.ActionListener() {
@@ -106,6 +109,7 @@ public class createParameterDual extends javax.swing.JFrame {
             }
         });
 
+        endButton.setBackground(new java.awt.Color(227, 213, 202));
         endButton.setFont(new java.awt.Font("Geoform", 0, 14)); // NOI18N
         endButton.setText("Завершить создание");
         endButton.addActionListener(new java.awt.event.ActionListener() {

@@ -23,9 +23,9 @@ public class SystemParameter {
 
     public void updateCurrentValue() {
         if (isUsingNormalGenerator) {
-            this.currentValue = normalGenerator.nextValue(); 
+            this.currentValue = Math.abs(normalGenerator.nextValue()); 
         } else {
-            this.currentValue = abnormalGenerator.nextValue();
+            this.currentValue = Math.abs(abnormalGenerator.nextValue());
         }
     }
 }

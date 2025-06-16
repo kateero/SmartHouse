@@ -44,6 +44,8 @@ public class createParameterSingle extends javax.swing.JFrame {
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
+        panelSingleThreshold.setBackground(new java.awt.Color(237, 237, 233));
+
         Title1.setFont(new java.awt.Font("Geoform", 1, 20)); // NOI18N
         Title1.setText("Добавление однопорогового параметра");
 
@@ -76,6 +78,7 @@ public class createParameterSingle extends javax.swing.JFrame {
 
         valueHighTreshold1.setFont(new java.awt.Font("Geoform", 0, 16)); // NOI18N
 
+        create1.setBackground(new java.awt.Color(227, 213, 202));
         create1.setFont(new java.awt.Font("Geoform", 0, 14)); // NOI18N
         create1.setText("Добавить параметр");
         create1.addActionListener(new java.awt.event.ActionListener() {
@@ -86,6 +89,7 @@ public class createParameterSingle extends javax.swing.JFrame {
 
         valueSdHigh1.setFont(new java.awt.Font("Geoform", 0, 16)); // NOI18N
 
+        endButton1.setBackground(new java.awt.Color(227, 213, 202));
         endButton1.setFont(new java.awt.Font("Geoform", 0, 14)); // NOI18N
         endButton1.setText("Закончить создание");
         endButton1.addActionListener(new java.awt.event.ActionListener() {
