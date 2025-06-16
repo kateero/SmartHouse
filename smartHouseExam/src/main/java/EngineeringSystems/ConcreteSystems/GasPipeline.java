@@ -25,7 +25,7 @@ public class GasPipeline extends EngineeringSystem {
 
     private void setParameters() {
         SystemParameter parameter = new DualSystemParameter(0.010, 0.003,
-                0.04, 0.005, 0.004, 0.0025);
+                0.04, 0.005, 0.003, 0.0025);
         parameters.put(ParametersTypes.PRESSURE, parameter);
 
         parameter = new SystemParameter(0.5, 0.01, 4800, 100);
