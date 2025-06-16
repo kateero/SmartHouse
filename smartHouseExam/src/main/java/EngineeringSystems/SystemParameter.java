@@ -2,23 +2,17 @@ package EngineeringSystems;
 
 public class SystemParameter {
 
-    protected final String name;
     protected double currentValue;
     protected NormalDistributionGenerator normalGenerator;
     protected NormalDistributionGenerator abnormalGenerator;
     protected boolean isUsingNormalGenerator;
 
-    public SystemParameter(String name, double mean, double sd, double abnormalMean, double abnormalSd) {
-        this.name = name;
+    public SystemParameter(double mean, double sd, double abnormalMean, double abnormalSd) {
         this.normalGenerator = new NormalDistributionGenerator(mean, sd);
         this.abnormalGenerator = new NormalDistributionGenerator(abnormalMean, abnormalSd);
         this.isUsingNormalGenerator = true;
     }
-
-    public String getName() {
-        return name;
-    }
-
+    
     public double getCurrentValue() {
         return currentValue;
     }

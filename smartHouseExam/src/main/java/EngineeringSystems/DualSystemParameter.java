@@ -5,10 +5,10 @@ public class DualSystemParameter extends SystemParameter {
     private NormalDistributionGenerator abnormalLowGenerator;
     private boolean isHighAbnormal;
 
-    public DualSystemParameter(String name, double mean, double sd,
+    public DualSystemParameter(double mean, double sd,
             double abnormalHighMean, double abnormalHighSd,
             double abnormalLowMean, double abnormalLowSd) {
-        super(name, mean, sd, abnormalHighMean, abnormalHighSd);
+        super(mean, sd, abnormalHighMean, abnormalHighSd);
         this.abnormalLowGenerator = new NormalDistributionGenerator(abnormalLowMean, abnormalLowSd);
     }
 

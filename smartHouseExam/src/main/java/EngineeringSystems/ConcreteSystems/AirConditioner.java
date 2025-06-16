@@ -32,17 +32,17 @@ public class AirConditioner extends EngineeringSystem {
     }
 
     private void setParameters() {
-        SystemParameter parameter = new DualSystemParameter("Температура", 23, 2,
+        SystemParameter parameter = new DualSystemParameter(23, 2,
                 40, 5, 3, 1);
         parameters.put(ParametersTypes.TEMPERATURE, parameter);
 
-        parameter = new SystemParameter("Вибрация", 0.2, 0.07, 8, 1.5);
+        parameter = new SystemParameter(0.2, 0.07, 8, 1.5);
         parameters.put(ParametersTypes.VIBRATION, parameter);
 
-        parameter = new SystemParameter("Шум", 15, 3, 50, 5);
+        parameter = new SystemParameter(15, 3, 50, 5);
         parameters.put(ParametersTypes.NOISE, parameter);
 
-        parameter = new SystemParameter("Энергопотребление", 600, 5, 750, 10);
+        parameter = new SystemParameter(600, 5, 750, 10);
         parameters.put(ParametersTypes.ENERGY, parameter);
     }
 }
